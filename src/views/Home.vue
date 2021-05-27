@@ -16,13 +16,13 @@
                         </div>
                         <div class="shadow-gray-md rounded-lg sm:col-span-4 col-span-12 sm:h-auto h-52">
                             <div class="bg-cover h-full bg-center rounded-lg"
-                                 style="background-image:url(../img/commercial/img1.jpg)"></div>
+                                 :style="`background-image: url(${require('../img/commercial/img1.jpg')})`"></div>
                         </div>
                     </div>
                     <div class="grid sm:grid-cols-10 grid-cols-12 gap-4 p-2">
                         <div class="shadow-gray-md rounded-lg sm:col-span-4 col-span-12 sm:h-auto h-52">
                             <div class="bg-cover h-full bg-center rounded-lg"
-                                 style="background-image:url(../img/commercial/img1.jpg)"></div>
+                                 :style="`background-image: url(${require('../img/commercial/img1.jpg')})`"></div>
                         </div>
                         <div v-for="item in 3"
                              :key="item"
@@ -36,7 +36,8 @@
                     <div class="grid sm:grid-cols-10 grid-cols-12 gap-4 p-2">
                         <div v-for="item in 5"
                              :key="item"
-                             class="shadow-gray-md rounded-lg sm:col-span-2" :class="item > 3 ? 'col-span-6' : 'col-span-4'">
+                             class="shadow-gray-md rounded-lg sm:col-span-2"
+                             :class="item > 3 ? 'col-span-6' : 'col-span-4'">
                             <Card />
                         </div>
                     </div>
@@ -51,8 +52,9 @@
                 <div class="grid sm:grid-cols-10 grid-cols-12 gap-4 p-2">
                     <div v-for="item in 5"
                          :key="item"
-                         class="shadow-gray-md rounded-lg sm:col-span-2" :class="item < 3 ? 'col-span-6' : 'col-span-4'">
-                        <Card :showWhiteBg="false"/>
+                         class="shadow-gray-md rounded-lg sm:col-span-2"
+                         :class="item < 3 ? 'col-span-6' : 'col-span-4'">
+                        <Card :showWhiteBg="false" />
                     </div>
                 </div>
             </div>
@@ -75,7 +77,7 @@ export default {
                 { name: "性感情人", path: "" },
                 { name: "喝酒享樂", path: "" },
                 { name: "音樂派對", path: "" }
-            ]
+            ],
         };
     }
 };
