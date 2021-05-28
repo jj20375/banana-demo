@@ -23,6 +23,7 @@
 
 <script>
 import owlCarousel from "vue-owl-carousel2";
+import Banner1 from "../../public/img/banner/banner1.jpg";
 export default {
     components: {
         owlCarousel
@@ -31,7 +32,7 @@ export default {
         return {
             banners: [
                 {
-                    imgSrc: "../img/banner/banner1.jpg"
+                    imgSrc: Banner1
                 }
             ]
         };
