@@ -5,7 +5,7 @@
                   :dots="true"
                   :margin="10"
                   :stagePadding="0"
-                  :autoplayTimeout="1500"
+                  :autoplayTimeout="3500"
                   :center="false"
                   :nav="false">
             <div v-for="(item,index) in banners"

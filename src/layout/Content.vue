@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from "vuex";
-import Header from "./Header.vue";
+import Header from "./Header/index.vue";
 import Banner from "../components/Banner.vue";
 import SideBar from "./SideBar.vue";
 import Footer from "./Footer.vue";

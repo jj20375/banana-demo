@@ -77,7 +77,7 @@ export default {
                 { name: "性感情人", path: "" },
                 { name: "喝酒享樂", path: "" },
                 { name: "音樂派對", path: "" }
-            ],
+            ]
         };
     }
 };
