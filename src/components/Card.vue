@@ -1,16 +1,23 @@
 <template>
     <div>
         <div class="relative md:text-left text-center">
+            <div v-if="!showWhiteBg" class="hidden md:block">
+                <h5 class="z-10 absolute text-red-600"
+                    style="width:40px; right:20px;">吃喝玩伴</h5>
+                <img style="width:50px; right:20px;"
+                class="absolute"
+                     src="../img/icon/sale-label.svg"
+                     alt="">
+            </div>
             <img class="w-full rounded-tl-lg rounded-tr-lg"
                  src="img/providers/girl1.jpg"
                  alt="">
             <div class="w-full h-full absolute top-0 bg-gradient-to-t z-0 from-gray-900 rounded-b-lg"></div>
-            <div :class="showWhiteBg ? 'bg-white p-2' : 'p-0'" class="relative"
-                 >
+            <div :class="showWhiteBg ? 'bg-white p-2' : 'p-0'"
+                 class="relative">
                 <div :class="showWhiteBg ? '' : 'absolute md:-top-20 -top-14 w-full mb-20 pl-2'">
                     <h3 class="md:text-3xl text-md md:block inline-block"
                         :class="showWhiteBg ? 'text-gray-800' : 'text-white'">妮可</h3>
-
                     <h5 class="md:text-xl text-xs md:mt-2"
                         :class="showWhiteBg ? 'text-gray-800 md:block inline-block' : 'text-white md:float-left  inline-block'">台北市</h5>
                     <div class="mt-2"
