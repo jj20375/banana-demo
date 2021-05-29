@@ -100,18 +100,20 @@ export default {
     },
     mounted() {
         this.$nextTick( ()=> {
-
+  var vConsole = new window.VConsole();
             window.addEventListener("scroll", () => {
                     this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop;
                     if(this.isScroll) {
                         this.play = true;
                         this.$refs.playvideo.querySelector("#myVideo").play();
+                        console.log("is play now");
                     } else {
                         this.play = false;
                         this.$refs.playvideo.querySelector("#myVideo").pause();
+                        console.log("is pause now");
                     }
             });
-            console.log(this.$refs.playvideo.offsetTop);
+            
         });
     }
 };
