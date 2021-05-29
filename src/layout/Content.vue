@@ -12,13 +12,14 @@
             </div>
             <div class="col-span-12 bg-gray-200" :style="isAuth ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
                 <Banner />
-                <div class="mb-20">
+                <div class="mb-20 h-full">
                     <router-view></router-view>
                 </div>
+                <Footer class="bg-white py-5" />
             </div>
-            <div class="col-span-12 bg-white py-5">
+            <!-- <div class="col-span-12 bg-white py-5">
                 <Footer />
-            </div>
+            </div> -->
             <!-- <div :class="isAuth ? 'col-span-10':  'col-span-12'" class="bg-gray-200">
                 <router-view></router-view>
             </div> -->
@@ -51,8 +52,11 @@ export default {
         };
     },
     mounted() {
+        // 判斷頁面是否滾動
         window.addEventListener("scroll", () => {
+            // 判斷是否登入
             if(this.isAuth) {
+                // 如果有登入將以觸發滾動變數 改為true (window.scrollY 為 偵測滾動高度方法) (offsetTop為指定element距離螢幕最上方高度)
                 this.isScroll = window.scrollY > this.$refs.sidebar.offsetTop;
             }
         });

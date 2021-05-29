@@ -1,19 +1,16 @@
 <template>
-    <div class="text-5xl ml-3">
+    <div class=" ml-3 h-96 mb-96">
         {{ $route.meta.text }}
-        <div ref="playvideo"
+        <div :ref="'playvideo'"
              class="inline-block">
             <div class="relative">
-
                 <div @mouseenter="mouseoverPlay($event)"
                      class="z-10">
-
                     <img class="w-80"
                          :class="play ? 'opacity-0': 'opacity-1'"
                          src="img/providers/girl1.jpg"
                          alt="">
                 </div>
-
                 <video :muted="!audioOpen"
                        class="absolute top-0 left-0 bg-black h-full"
                        :class="play? 'block':'hidden'"
@@ -23,7 +20,7 @@
                             type="video/mp4">
                 </video>
             </div>
-            <button class="blue-btn mr-3"
+            <button class="blue-btn text-sm mr-3"
                     @click="playVideo()">{{!play ? 'play' : 'pause'}}</button>
             <button class="red-btn"
                     @click="openAudio()">{{!audioOpen ? 'open audio' : 'cancel audio'}}</button>
@@ -36,7 +33,8 @@ export default {
     data() {
         return {
             play: false,
-            audioOpen: false
+            audioOpen: false,
+            isScroll: false
         };
     },
     methods: {
@@ -66,13 +64,13 @@ export default {
             //     },
             //     false
             // );
-            
+
             this.play = true;
             this.$refs.playvideo.querySelector("#myVideo").play();
-            this.$refs.playvideo.querySelector("#myVideo").addEventListener("mouseleave", (event)=> {
+            this.$refs.playvideo.querySelector("#myVideo").addEventListener("mouseleave", (event) => {
                 this.play = false;
-              this.$refs.playvideo.querySelector("#myVideo").pause();  
-            })
+                this.$refs.playvideo.querySelector("#myVideo").pause();
+            });
             //  $event.addEventListener(
             //     "mouseleave",
             //     function (event) {
@@ -99,6 +97,22 @@ export default {
             this.play = false;
             this.$refs.playvideo.querySelector("#myVideo").pause();
         }
+    },
+    mounted() {
+        this.$nextTick( ()=> {
+
+            window.addEventListener("scroll", () => {
+                    this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop;
+                    if(this.isScroll) {
+                        this.play = true;
+                        this.$refs.playvideo.querySelector("#myVideo").play();
+                    } else {
+                        this.play = false;
+                        this.$refs.playvideo.querySelector("#myVideo").pause();
+                    }
+            });
+            console.log(this.$refs.playvideo.offsetTop);
+        });
     }
 };
 </script>

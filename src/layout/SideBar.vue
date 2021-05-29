@@ -5,9 +5,9 @@
         <div @click="changeIsCollapse(!isCollapse)"
              class="cursor-pointer  p-2 ml-3"><i class="ni ni-bold-right"
                :class="[!isCollapse && 'transition transform rotate-90 duration-300']"></i></div>
-        <ul class="list-none mx-5 mt-10 text-center"
-            @mouseover="mouseoverIsCollapse(true)"
-            @mouseleave="mouseoverIsCollapse(false)">
+        <ul id="menus" class="list-none mx-5 mt-10 text-center"
+            @mouseenter="mouseoverIsCollapse()"
+            >
             <li v-for="(item, index) in menus"
                 class="mt-5"
                 v-show="(!isSupplier && item.meta.typeUser !== 'supplier') || isSupplier"
@@ -109,8 +109,9 @@ export default {
                 // 如果有 key 且被點擊時 則修改當前 boolean值
                 this.activeMenu[val] = !this.activeMenu[val];
             }
-
+            // 跳轉點擊選單頁面
             this.$router.push({ name: val }).catch((err) => err);
+            // 當下選中選單 用來 active class使用
             this.currentMenu = val;
             // 因為預設第一次進入網站時 無需觸發此事件 因此做一個判斷
             if (setShowMenuWork) {
@@ -118,6 +119,7 @@ export default {
                 this.setShowMenu(!this.showMenu);
             }
         },
+        // 將側邊選單固定展開按鈕
         changeIsCollapse(val) {
             this.setIsCollapse(val);
             if (val) {
@@ -126,16 +128,23 @@ export default {
                 this.setSideBarWidth(136);
             }
         },
-        mouseoverIsCollapse(val) {
-            this.isMouseOverCollapse = val;
+        // 滑鼠滑入側邊選單時觸發事件
+        mouseoverIsCollapse() {
+            // 判斷如果是鎖定展開選單時 則更改值
             if(!this.isCollapse) {
                 return;
             }
-            if (val) {
-                this.setSideBarWidth(136);
-            } else {
+            // 滑鼠滑入選單icon 時 改為 true
+            this.isMouseOverCollapse = true;
+            // 設定側邊選單寬度 用來 margin-left使用
+            this.setSideBarWidth(136);
+            // 當滑鼠移出選單時觸發
+            this.$refs.sidebar.querySelector("#menus").addEventListener("mouseleave", () => {
+                // 將滑鼠滑入選單判斷值改為 false
+                this.isMouseOverCollapse = false;
+                // 更改側邊選單寬度
                 this.setSideBarWidth(72);
-            }
+            })
         }
     },
     mounted() {
