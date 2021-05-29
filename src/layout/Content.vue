@@ -1,19 +1,27 @@
 <template>
-    <div class="grid grid-cols-12">
-        <div class="col-span-12">
-            <Header />
+    <div>
+        <div ref="sidebar"
+        v-if="isAuth"
+             class="fixed z-20 bg-white h-screen"
+             :class="isScroll ? 'top-0':'top-20'">
+            <SideBar :menus="sideBarMenu" />
         </div>
-        <!-- <SideBar class="col-span-12 pb-5 bg-white  sm:static sm:not-sr-only w-full sm:col-span-4 md:col-span-4 lg:col-span-3 xl:col-span-2  shadow-md dark:shadow-2xl z-10 NotoSansTCFont h-auto dark:bg-gray-800 text-blue-700 dark:text-blue-200"
-                 :class="showMenu ? 'not-sr-only' : 'sr-only'"
-                 .:menus="sideBarMenu" /> -->
-        <div class="col-span-12">
-            <Banner />
-        </div>
-        <div class="col-span-12 bg-gray-200">
-            <router-view></router-view>
-        </div>
-        <div class="col-span-12 bg-white py-5 mt-20">
-            <Footer/>
+        <div class="grid grid-cols-12 justify-center">
+            <div class="col-span-12">
+                <Header />
+            </div>
+            <div class="col-span-12 bg-gray-200" :style="isAuth ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
+                <Banner />
+                <div class="mb-20">
+                    <router-view></router-view>
+                </div>
+            </div>
+            <div class="col-span-12 bg-white py-5">
+                <Footer />
+            </div>
+            <!-- <div :class="isAuth ? 'col-span-10':  'col-span-12'" class="bg-gray-200">
+                <router-view></router-view>
+            </div> -->
         </div>
     </div>
 </template>
@@ -33,11 +41,21 @@ export default {
         Footer
     },
     computed: {
-        ...mapState(["showMenu"]),
-        ...mapState("permissionStore", ["sideBarMenu", "currentMenu"])
+        ...mapState(["showMenu", "isCollapse", "sideBarWidth"]),
+        ...mapState("userStore", ["isAuth"]),
+        ...mapState("permissionStore", ["sideBarMenu"])
     },
     data() {
-        return {};
+        return {
+            isScroll: false
+        };
+    },
+    mounted() {
+        window.addEventListener("scroll", () => {
+            if(this.isAuth) {
+                this.isScroll = window.scrollY > this.$refs.sidebar.offsetTop;
+            }
+        });
     }
 };
 </script>

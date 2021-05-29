@@ -3,7 +3,7 @@
         <div class="flex items-start justify-center h-20 w-full">
             <div class="flex-1 self-center ml-2">
                 <div class="flex items-center">
-                    <img class="w-24 ml-2"
+                    <img @click="$router.push({name:'home'}).catch(err=>{});" class="w-24 ml-2"
                          src="../../img/logo.svg"
                          alt="">
                     <ul class="ml-20 desktopShow list-none">
@@ -15,18 +15,14 @@
                     </ul>
                 </div>
             </div>
-            <LoginComponent v-if="isAuth" />
-            <div v-if="!isAuth"
-                 class="self-center md:block md:mr-5 hidden">
-                <el-input placeholder="搜尋"
-                          suffix-icon="el-icon-search"
-                          v-model="searchData">
-                </el-input>
+            <div class="self-center text-2xl">
+                <i class="fas fa-search mr-5"></i>
             </div>
+            <LoginComponent v-if="isAuth" />
             <div v-if="!isAuth"
                  class="self-center mr-10">
                 <button class="red-btn"
-                        @click="setIsAuth(!isAuth)">登入</button>
+                        @click="login(!isAuth)">登入</button>
             </div>
         </div>
         <div class="mobileShow self-center">
@@ -34,7 +30,6 @@
                     @click="setShowMenu(!showMenu)">
                 <i class="fas fa-bars fa-2x"></i>
             </button>
-        </div>
         </div>
     </header>
 </template>
@@ -71,8 +66,12 @@ export default {
     },
     methods: {
         ...mapActions("userStore", ["logOutUser"]),
-        ...mapMutations(["setShowMenu"]),
-        ...mapMutations("userStore", ["setIsAuth"])
+        ...mapMutations(["setShowMenu", "setSideBarWidth"]),
+        ...mapMutations("userStore", ["setIsAuth"]),
+        login(val) {
+            this.setSideBarWidth(72);
+            this.setIsAuth(val);
+        }
     }
 };
 </script>

@@ -7,9 +7,11 @@
                                 placement="top">
                         <el-switch style="display: block"
                                    v-model="changeSupplier"
+                                   :active-icon-class="isSupplier ? 'hidden':'icofont-close text-gray-500 top-1 absolute left-8'"
+                                   :inactive-icon-class="!isSupplier ? 'hidden': 'icofont-check text-gray-400 top-1 absolute right-8 z-10'"
                                    active-color="#000000"
                                    inactive-color="#E2E2E2"
-                                   @click="setIsSupplier(!changeSupplier)"
+                                   @change="setIsSupplier(changeSupplier)"
                                    :active-value="true"
                                    :inactive-value="false">
                         </el-switch>
@@ -17,7 +19,6 @@
                 </div>
                 <div class="text-2xl mr-5">
                     <div class="relative right-2">
-                        <i class="fas fa-search mr-5"></i>
                         <span class="cursor-pointer" @click="noticeShow = !noticeShow"><i class="fas fa-bell mr-5"></i></span>
                         <div class="absolute -top-2 w-5 h-5 bg-red-600 text-xs text-center align-middle text-white rounded-full right-9">
                             10
@@ -70,7 +71,7 @@ export default {
         Notification
     },
     computed: {
-        ...mapState("userStore", ["isAuth"])
+        ...mapState("userStore", ["isAuth", "isSupplier"]),
     },
     data() {
         return {
@@ -86,16 +87,23 @@ export default {
     methods: {
         ...mapActions("userStore", ["logOutUser"]),
         ...mapMutations("userStore", ["setIsSupplier", "setIsAuth"]),
+        ...mapMutations(["setSideBarWidth"]),
         // 點擊大頭照後事件
         clickProfile() {
             this.profileShow = !this.profileShow;
         },
         // 登出
         logOut() {
-            // this.$router.push({ name: "home" });
+            if(this.$route.name !== "home") {
+                this.$router.push({ name: "home" });
+            }
             this.setIsAuth(!this.isAuth);
+            this.setSideBarWidth(0);
             // this.logOutUser();
-        }
+        },
+    },
+    created() {
+        this.changeSupplier = this.isSupplier;
     }
 };
 </script>

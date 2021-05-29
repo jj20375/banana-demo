@@ -128,7 +128,8 @@ export const defaultRouter = [
             {
                 path: "/",
                 name: "home",
-                ico: "ni ni-shop",
+                icon: "ni ni-shop",
+                iconClass: "text-2xl",
                 component: () => import("../views/Home.vue"),
                 meta: {
                     title: "Home Page - Example App",

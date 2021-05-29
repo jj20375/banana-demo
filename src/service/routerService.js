@@ -44,14 +44,13 @@ export function permissionRouter(userRouter = [], allRouter = []) {
  *
  * @param {Array} routes 用戶過濾後的路由
  *
- * 遞迴為所有有子路由的路由設置第一個children.path為默認路由
+ * 遞迴為所有有子路由的路由，設置第一個children.path為默認路由，因為父層級路由沒有頁面
  */
-export function setDefaultRoute(routes) {
+ export function setDefaultRoute(routes) {
     routes.forEach((value, index) => {
-        // 判斷路由的children大於0
+        // 判斷點擊父級層路由時，如果有子路由時則導向第一個子路由
         if (value.children && value.children.length > 0) {
             value.redirect = { name: value.children[0].name };
-            // setDefaultRoute(value.children);
         }
     });
 }
