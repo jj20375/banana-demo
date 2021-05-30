@@ -1,6 +1,17 @@
 <template>
     <div class=" ml-3 h-96 mb-96">
         {{ $route.meta.text }}
+        <!-- <video :muted="!audioOpen"
+               autoplay
+               class=""
+               loop
+               controls
+               playsinline
+               >
+            <source :src="require('../assets/video/video1.mp4')"
+                    type="video/mp4">
+        </video> -->
+        <!-- <embed type="video/quicktime" :src="require('../assets/video/video1.mp4')" width="640" height="480"> -->
         <div :ref="'playvideo'"
              class="inline-block">
             <div class="relative">
@@ -11,16 +22,22 @@
                          src="img/providers/girl1.jpg"
                          alt="">
                 </div>
+                <!-- <canvas width="634"
+                        height="264"></canvas> -->
                 <video :muted="!audioOpen"
+                       :autoplay="play"
                        class="absolute top-0 left-0 bg-black h-full"
-                       :class="play? 'block':'hidden'"
+                      :class="play?'opacity-1':'opacity-0'" 
                        loop
+                       controls
+                       playsinline
                        id="myVideo">
                     <source :src="require('../assets/video/video1.mp4')"
                             type="video/mp4">
                 </video>
             </div>
-            <button class="blue-btn text-sm mr-3"
+            <button ref="playVideo"
+                    class="blue-btn text-sm mr-3"
                     @click="playVideo()">{{!play ? 'play' : 'pause'}}</button>
             <button class="red-btn"
                     @click="openAudio()">{{!audioOpen ? 'open audio' : 'cancel audio'}}</button>
@@ -45,6 +62,22 @@ export default {
             } else {
                 this.$refs.playvideo.querySelector("#myVideo").pause();
             }
+        },
+        playVideo2() {
+            this.play = true;
+            
+            this.$refs.playvideo.querySelector("#myVideo").play();
+            // if (promise !== undefined) {
+            //     console.log(promise);
+            //     promise
+            //         .then((_) => {
+            //             console.log(_);
+            //             this.$refs.playvideo.querySelector("#myVideo").play();
+            //         })
+            //         .catch((err) => {
+            //             console.log(err);
+            //         });
+            // }
         },
         openAudio() {
             this.audioOpen = !this.audioOpen;
@@ -99,21 +132,24 @@ export default {
         }
     },
     mounted() {
-        this.$nextTick( ()=> {
-  var vConsole = new window.VConsole();
+        this.$nextTick(() => {
+            var vConsole = new window.VConsole();
             window.addEventListener("scroll", () => {
-                    this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop;
-                    if(this.isScroll) {
-                        this.play = true;
-                        this.$refs.playvideo.querySelector("#myVideo").play();
-                        console.log("is play now");
-                    } else {
-                        this.play = false;
-                        this.$refs.playvideo.querySelector("#myVideo").pause();
-                        console.log("is pause now");
-                    }
+                this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop - this.$refs.playvideo.offsetTop / 2;
+                if (this.isScroll) {
+                    // this.play = true;
+                    // this.$refs.playvideo.querySelector("#playVideo").addEventListener("click", () => {
+
+                    //     this.$refs.playvideo.querySelector("#myVideo").play();
+                    // })
+                    this.playVideo2();
+                    console.log("is play now");
+                } else {
+                    this.play = false;
+                    this.$refs.playvideo.querySelector("#myVideo").pause();
+                    console.log("is pause now");
+                }
             });
-            
         });
     }
 };
