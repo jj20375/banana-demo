@@ -12,12 +12,15 @@
                     type="video/mp4">
         </video> -->
         <!-- <embed type="video/quicktime" :src="require('../assets/video/video1.mp4')" width="640" height="480"> -->
+        <!-- <h1 @mouseenter="mouseoverPlay()" class="inline-block">test</h1> -->
+
         <div :ref="'playvideo'"
              class="inline-block">
             <div class="relative">
-                <div @mouseenter="mouseoverPlay($event)"
-                     class="z-10">
-                    <img class="w-80"
+                <div @mouseenter="mouseoverPlay()"
+                     
+                     class="z-10 h-full">
+                    <img class="w-80 z-10"
                          :class="play ? 'opacity-0': 'opacity-1'"
                          src="img/providers/girl1.jpg"
                          alt="">
@@ -25,9 +28,9 @@
                 <!-- <canvas width="634"
                         height="264"></canvas> -->
                 <video :muted="!audioOpen"
-                       :autoplay="play"
-                       class="absolute top-0 left-0 bg-black h-full"
-                      :class="play?'opacity-1':'opacity-0'" 
+                :autoplay="play"
+                class="absolute top-0 left-0 bg-black h-full"
+                       :class="play?'block':'hidden'"
                        loop
                        controls
                        playsinline
@@ -65,7 +68,7 @@ export default {
         },
         playVideo2() {
             this.play = true;
-            
+
             this.$refs.playvideo.querySelector("#myVideo").play();
             // if (promise !== undefined) {
             //     console.log(promise);
@@ -97,10 +100,11 @@ export default {
             //     },
             //     false
             // );
-
+            console.log("work");
             this.play = true;
             this.$refs.playvideo.querySelector("#myVideo").play();
             this.$refs.playvideo.querySelector("#myVideo").addEventListener("mouseleave", (event) => {
+                console.log("work2");
                 this.play = false;
                 this.$refs.playvideo.querySelector("#myVideo").pause();
             });
@@ -143,11 +147,11 @@ export default {
                     //     this.$refs.playvideo.querySelector("#myVideo").play();
                     // })
                     this.playVideo2();
-                    console.log("is play now");
+                    // console.log("is play now");
                 } else {
                     this.play = false;
                     this.$refs.playvideo.querySelector("#myVideo").pause();
-                    console.log("is pause now");
+                    // console.log("is pause now");
                 }
             });
         });
