@@ -1,7 +1,7 @@
 <template>
-    <div class="mr-5  sm:flex-grow-0 self-center">
+    <div class="sm:mr-5 sm:flex-grow-0 self-center">
         <div class="relative">
-            <div class="flex items-center">
+            <div class="flex items-center justify-center">
                 <div class="mr-5">
                     <el-tooltip content="切換供給者或需求者呈現內容"
                                 placement="top">
@@ -26,19 +26,20 @@
                         <transition enter-class="transform opacity-0 -translate-y-20 transition duration-300"
                                     enter-to-class=" transform opacity-1 translate-y-0 transition duration-300"
                                     leave-active-class="transform opacity-0 translate-x-40 transiton duration-500">
-                            <div v-if="noticeShow" class="absolute md:right-0 -right-20 z-10 w-80">
+                            <div v-if="noticeShow" class="absolute md:right-0 -right-40 z-10 w-80" :class="showMenu ? 'bg-black rounded-lg p-2':''">
                                 <Notification />
                             </div>
                         </transition>
                         <i class="fas fa-comment"></i>
                     </div>
                 </div>
-                <div class="flex desktopShow flex-col">
+                <div class="flex flex-col">
                     <div class="mr-2 text-gray-300">hello</div>
                     <div class="mr-2">userName</div>
                 </div>
                 <div @click="clickProfile()">
                     <Avatar :backgroundImg="require('../../img/avatar/avatar1.jpeg')"
+                    :size="[showMenu ? 'w-14 h-14 relative' :'w-14 h-14']"
                             :isShowLight="true" />
                 </div>
             </div>
@@ -71,6 +72,7 @@ export default {
         Notification
     },
     computed: {
+        ...mapState(["showMenu"]),
         ...mapState("userStore", ["isAuth", "isSupplier"]),
     },
     data() {

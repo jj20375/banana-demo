@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-lg shadow-gray-md w-auto text-xs py-2 mt-5 h-80 overflow-y-scroll">
+    <div class="bg-white rounded-lg shadow-gray-md w-auto text-xs py-2 sm:mt-5 h-80 overflow-y-scroll">
         <div class="flex pl-2 py-3 border-b-2 border-gray-200">
             <h2 class="text-xl flex-1">通知</h2>
             <span class="bg-indigo-50 w-20 self-center p-1 rounded-full text-center mr-2 text-purple-500 font-medium"><span class="mr-1">6</span>new</span>

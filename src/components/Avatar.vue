@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {  mapState } from "vuex";
 export default {
     props: {
         // 頭像圖
@@ -36,6 +37,9 @@ export default {
                 return ["w-14", "h-14"];
             }
         }
+    },
+    computed: {
+        ...mapState(["showMenu"]),
     }
 };
 </script>

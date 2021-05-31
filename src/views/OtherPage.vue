@@ -1,24 +1,10 @@
 <template>
     <div class=" ml-3 h-96 mb-96">
         {{ $route.meta.text }}
-        <!-- <video :muted="!audioOpen"
-               autoplay
-               class=""
-               loop
-               controls
-               playsinline
-               >
-            <source :src="require('../assets/video/video1.mp4')"
-                    type="video/mp4">
-        </video> -->
-        <!-- <embed type="video/quicktime" :src="require('../assets/video/video1.mp4')" width="640" height="480"> -->
-        <!-- <h1 @mouseenter="mouseoverPlay()" class="inline-block">test</h1> -->
-
         <div :ref="'playvideo'"
              class="inline-block">
             <div class="relative">
                 <div @mouseenter="mouseoverPlay()"
-                     
                      class="z-10 h-full">
                     <img class="w-80 z-10"
                          :class="play ? 'opacity-0': 'opacity-1'"
@@ -28,8 +14,8 @@
                 <!-- <canvas width="634"
                         height="264"></canvas> -->
                 <video :muted="!audioOpen"
-                :autoplay="play"
-                class="absolute top-0 left-0 bg-black h-full"
+                       :autoplay="play"
+                       class="absolute top-0 left-0 bg-black h-full"
                        :class="play?'block':'hidden'"
                        loop
                        controls
@@ -52,12 +38,16 @@
 export default {
     data() {
         return {
+            // 判斷是否播放影片中
             play: false,
+            // 判斷是否有開啟聲音
             audioOpen: false,
+            // 判斷是否觸發滾動播放影片
             isScroll: false
         };
     },
     methods: {
+        // 點擊按鈕播放或關閉
         playVideo() {
             this.play = !this.play;
             if (this.play) {
@@ -66,94 +56,40 @@ export default {
                 this.$refs.playvideo.querySelector("#myVideo").pause();
             }
         },
-        playVideo2() {
-            this.play = true;
-
-            this.$refs.playvideo.querySelector("#myVideo").play();
-            // if (promise !== undefined) {
-            //     console.log(promise);
-            //     promise
-            //         .then((_) => {
-            //             console.log(_);
-            //             this.$refs.playvideo.querySelector("#myVideo").play();
-            //         })
-            //         .catch((err) => {
-            //             console.log(err);
-            //         });
-            // }
-        },
+        // 判斷是否開啟聲音
         openAudio() {
             this.audioOpen = !this.audioOpen;
         },
+        // 滑入時播放影片
         mouseoverPlay($event) {
-            // this.$refs.playvideo.addEventListener(
-            //     "mouseenter",
-            //     function (event) {
-            //         this.play = true;
-            //         // highlight the mouseenter target
-            //         console.log(event.target);
-            //          this.$refs.playvideo.querySelector("#myVideo").play();
-            //         // reset the color after a short delay
-            //         // setTimeout(function () {
-            //         //     event.target.pause();
-            //         // }, 500);
-            //     },
-            //     false
-            // );
-            console.log("work");
             this.play = true;
             this.$refs.playvideo.querySelector("#myVideo").play();
             this.$refs.playvideo.querySelector("#myVideo").addEventListener("mouseleave", (event) => {
-                console.log("work2");
                 this.play = false;
                 this.$refs.playvideo.querySelector("#myVideo").pause();
             });
-            //  $event.addEventListener(
-            //     "mouseleave",
-            //     function (event) {
-            //         this.play = false;
-            //         // highlight the mouseenter target
-            //         console.log(event.target.div);
-            //         this.$refs.playvideo.querySelector("#myVideo").pause();
-            //         // reset the color after a short delay
-            //         // setTimeout(function () {
-            //         //     event.target.pause();
-            //         // }, 500);
-            //     },
-            //     false
-            // );
-            // if (val) {
-            //
-            // } else {
-            //     setTimeout(() => {
-            //         this.$refs.playvideo.querySelector("#myVideo").pause();
-            //     }, 2000);
-            // }
         },
-        mouseleavePause() {
-            this.play = false;
-            this.$refs.playvideo.querySelector("#myVideo").pause();
+        // 滾動時播放影片
+        windoScrollPlay() {
+            window.addEventListener("scroll", () => {
+                this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop - this.$refs.playvideo.offsetTop / 2;
+                if (this.isScroll) {
+                    this.play = true;
+                    this.$refs.playvideo.querySelector("#myVideo").play();
+                } else {
+                    this.play = false;
+                    this.$refs.playvideo.querySelector("#myVideo").pause();
+                }
+            });
         }
     },
     mounted() {
         this.$nextTick(() => {
-            var vConsole = new window.VConsole();
-            window.addEventListener("scroll", () => {
-                this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop - this.$refs.playvideo.offsetTop / 2;
-                if (this.isScroll) {
-                    // this.play = true;
-                    // this.$refs.playvideo.querySelector("#playVideo").addEventListener("click", () => {
-
-                    //     this.$refs.playvideo.querySelector("#myVideo").play();
-                    // })
-                    this.playVideo2();
-                    // console.log("is play now");
-                } else {
-                    this.play = false;
-                    this.$refs.playvideo.querySelector("#myVideo").pause();
-                    // console.log("is pause now");
-                }
-            });
+            // // 手機版看console用
+            // var vConsole = new window.VConsole();
+            if (this.isMobile) {
+                this.windoScrollPlay();
+            }
         });
     }
 };

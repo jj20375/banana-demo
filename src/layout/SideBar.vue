@@ -1,30 +1,30 @@
 <template>
-    <div ref="sidebar">
+    <div ref="sidebar"
+         class="sm:w-auto w-full sm:inline-block flex justify-center">
         <!-- <button class="blue-btn sm:hidden w-2/3 mt-3 mx-auto block text-2xl"
                 @click="setShowMenu(!showMenu)">x</button> -->
         <div @click="changeIsCollapse(!isCollapse)"
-             class="cursor-pointer  p-2 ml-3"><i class="ni ni-bold-right"
+             class="cursor-pointer p-2 ml-3 sm:block hidden"><i class="ni ni-bold-right"
                :class="[!isCollapse && 'transition transform rotate-90 duration-300']"></i></div>
-        <ul id="menus" class="list-none mx-5 mt-10 text-center"
-            @mouseenter="mouseoverIsCollapse()"
-            >
+        <ul id="menus"
+            class="list-none mx-5 sm:mt-10 text-center sm:block"
+            @mouseenter="mouseoverIsCollapse()">
             <li v-for="(item, index) in menus"
-                class="mt-5"
+                class="mt-5 sm:block ml-3 sm:ml-0 inline-block"
                 v-show="(!isSupplier && item.meta.typeUser !== 'supplier') || isSupplier"
                 :class="currentMenu === item.name ? 'text-yellow-500': ''"
                 :key="index">
                 <span @click="clickMenu(item.name, true)"
-                      class="cursor-pointer flex items-center">
+                      class="cursor-pointer sm:flex sm:items-center">
                     <!-- icon -->
-                    <span class="mr-2"
+                    <span class="sm:mr-2 sm:inline-block"
                           :class="item.iconClass"><i :class="item.icon"></i></span>
                     <!-- 選單文字 -->
                     <transition enter-class="transition opacity-0 duration-100"
                                 enter-to-class="transition opacity-1 duration-100"
                                 leave-active-class="opacity-0 transition duration-100">
-                        <strong v-show="!isCollapse || isMouseOverCollapse"
-                                :class="[currentMenu === item.name ? 'text-yellow-500 hover:text-black' : 'hover:text-yellow-500', !isCollapse || isMouseOverCollapse ? 'w-auto': 'hidden w-0']"
-                                class="transition duration-100">{{ item.meta.text }}</strong>
+                        <strong :class="[currentMenu === item.name ? 'text-yellow-500 hover:text-black' : 'hover:text-yellow-500', (!isCollapse || isMouseOverCollapse) ? 'sm:not-sr-only': 'sm:sr-only']"
+                                class="transition duration-100 sm:text-lg text-xs not-sr-only sm:inline-block block">{{ item.meta.text }}</strong>
                     </transition>
                     <!-- 巢狀選單時觸發底下箭頭icon -->
                     <i v-if="!$isEmpty(item.children)"
@@ -114,10 +114,10 @@ export default {
             // 當下選中選單 用來 active class使用
             this.currentMenu = val;
             // 因為預設第一次進入網站時 無需觸發此事件 因此做一個判斷
-            if (setShowMenuWork) {
-                // 手機版時 選單被點擊後 關閉選單事件
-                this.setShowMenu(!this.showMenu);
-            }
+            // if (setShowMenuWork) {
+            //     // 手機版時 選單被點擊後 關閉選單事件
+            //     this.setShowMenu(!this.showMenu);
+            // }
         },
         // 將側邊選單固定展開按鈕
         changeIsCollapse(val) {
@@ -131,7 +131,7 @@ export default {
         // 滑鼠滑入側邊選單時觸發事件
         mouseoverIsCollapse() {
             // 判斷如果是鎖定展開選單時 則更改值
-            if(!this.isCollapse) {
+            if (!this.isCollapse) {
                 return;
             }
             // 滑鼠滑入選單icon 時 改為 true
@@ -144,7 +144,7 @@ export default {
                 this.isMouseOverCollapse = false;
                 // 更改側邊選單寬度
                 this.setSideBarWidth(72);
-            })
+            });
         }
     },
     mounted() {

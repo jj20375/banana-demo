@@ -1,18 +1,20 @@
 <template>
-    <div>
+    <div class="text1">
         <div ref="sidebar"
-        v-if="isAuth"
-             class="fixed z-20 bg-white h-screen"
-             :class="isScroll ? 'top-0':'top-20'">
-            <SideBar :menus="sideBarMenu" />
+             v-if="isAuth"
+             class="sm:inline-block fixed bottom-0 z-20 bg-white sm:h-screen sm:w-auto w-full"
+             :class="isScroll ? 'sm:top-0 bottom-0':'sm:top-20 bottom-0'">
+            <SideBar :menus="sideBarMenu"
+                     class="sm:mb-0 sm:border-none border-b-4 sm:pb-0 pb-5 border-yellow-500" />
         </div>
         <div class="grid grid-cols-12 justify-center">
             <div class="col-span-12">
                 <Header />
             </div>
-            <div class="col-span-12 bg-gray-200" :style="isAuth ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
+            <div class="col-span-12 bg-gray-200"
+                 :style="isAuth && !isMobile ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
                 <Banner />
-                <div class="mb-20 h-full">
+                <div class="mb-20">
                     <router-view></router-view>
                 </div>
                 <Footer class="bg-white py-5" />
@@ -53,12 +55,14 @@ export default {
     },
     mounted() {
         // 判斷頁面是否滾動
-        window.addEventListener("scroll", () => {
-            // 判斷是否登入
-            if(this.isAuth) {
-                // 如果有登入將以觸發滾動變數 改為true (window.scrollY 為 偵測滾動高度方法) (offsetTop為指定element距離螢幕最上方高度)
-                this.isScroll = window.scrollY > this.$refs.sidebar.offsetTop;
-            }
+        this.$nextTick(() => {
+            window.addEventListener("scroll", () => {
+                // 判斷是否登入
+                if (this.isAuth) {
+                    // 如果有登入將以觸發滾動變數 改為true (window.scrollY 為 偵測滾動高度方法) (offsetTop為指定element距離螢幕最上方高度)
+                    this.isScroll = window.scrollY > this.$refs.sidebar.offsetTop;
+                }
+            });
         });
     }
 };
