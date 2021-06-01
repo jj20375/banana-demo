@@ -1,5 +1,5 @@
 <template>
-    <footer class="grid grid-cols-12 gap-4">
+    <footer class="grid grid-cols-12 gap-4 sm:mb-0" :class="isAuth ? 'mb-24':''">
         <div class="col-span-1 desktopShow"></div>
         <div class="md:col-span-11 col-span-12">
             <div class="md:flex md:text-left text-center">
@@ -10,3 +10,13 @@
         </div>
     </footer>
 </template>
+
+
+<script>
+import { mapState } from "vuex";
+export default {
+    computed: {
+        ...mapState("userStore", ["isAuth"])
+    }
+};
+</script>
