@@ -1,5 +1,5 @@
 <template>
-    <div class="text1">
+    <div >
         <div ref="sidebar"
              v-if="isAuth"
              class="sm:inline-block fixed bottom-0 z-20 bg-white sm:h-screen sm:w-auto w-full"
@@ -11,8 +11,8 @@
             <div class="col-span-12">
                 <Header />
             </div>
-            <div class="col-span-12 bg-gray-200"
-                 :style="isAuth && !isMobile ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
+            <div id="content" class="col-span-12 bg-gray-200"
+                 :style="isAuth ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
                 <div class="mb-20">
                     <router-view></router-view>
                 </div>
@@ -27,6 +27,14 @@
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+#content {
+    @media screen and (max-width: 640px) {
+        margin-left: 0 !important;
+    }
+}
+</style>
 
 <script>
 import { mapState } from "vuex";
@@ -49,7 +57,8 @@ export default {
     },
     data() {
         return {
-            isScroll: false
+            isScroll: false,
+            
         };
     },
     mounted() {

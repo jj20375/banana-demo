@@ -25,8 +25,7 @@
                             type="video/mp4">
                 </video>
             </div>
-            <button ref="playVideo"
-                    class="blue-btn text-sm mr-3"
+            <button class="blue-btn text-sm mr-3"
                     @click="playVideo()">{{!play ? 'play' : 'pause'}}</button>
             <button class="red-btn"
                     @click="openAudio()">{{!audioOpen ? 'open audio' : 'cancel audio'}}</button>
@@ -71,26 +70,28 @@ export default {
         },
         // 滾動時播放影片
         windoScrollPlay() {
-            window.addEventListener("scroll", () => {
-                this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop - this.$refs.playvideo.offsetTop / 2;
-                if (this.isScroll) {
-                    this.play = true;
-                    this.$refs.playvideo.querySelector("#myVideo").play();
-                } else {
-                    this.play = false;
-                    this.$refs.playvideo.querySelector("#myVideo").pause();
-                }
-            });
+            this.isScroll = window.scrollY > this.$refs.playvideo.offsetTop - this.$refs.playvideo.offsetTop / 2;
+            console.log(window.scrollY, this.$refs);
+            if (this.isScroll) {
+                this.play = true;
+                this.$refs.playvideo.querySelector("#myVideo").play();
+            } else {
+                this.play = false;
+                this.$refs.playvideo.querySelector("#myVideo").pause();
+            }
+            console.log("is work out");
         }
     },
     mounted() {
-        this.$nextTick(() => {
-            // // 手機版看console用
-            // var vConsole = new window.VConsole();
-            if (this.isMobile) {
-                this.windoScrollPlay();
-            }
-        });
-    }
+        // // 手機版看console用
+        // var vConsole = new window.VConsole();
+        if (this.isMobile) {
+            window.addEventListener("scroll", this.windoScrollPlay, false);
+        }
+    },
+    beforeDestroy() {
+        // 再來開頁面前刪除滾動事件
+        window.removeEventListener("scroll", this.windoScrollPlay, false);
+    },
 };
 </script>
