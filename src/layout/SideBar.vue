@@ -11,7 +11,7 @@
             @mouseenter="mouseoverIsCollapse()">
             <li v-for="(item, index) in menus"
                 class="mt-5 sm:block ml-3 sm:ml-0 inline-block"
-                v-show="(!isSupplier && item.meta.typeUser !== 'supplier') || isSupplier"
+                v-show="(!isSupplier && item.meta.typeUser !== 'supplier' && item.meta.isMenu) || (isSupplier && item.meta.isMenu)"
                 :class="currentMenu === item.name ? 'text-yellow-500': ''"
                 :key="index">
                 <span @click="clickMenu(item.name, true)"

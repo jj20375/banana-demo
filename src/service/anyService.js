@@ -47,3 +47,8 @@ export const checkHaveSelectData = function(val, key, objVar) {
         }
     });
 };
+
+//產生隨機數
+export const getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};

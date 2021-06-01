@@ -8,7 +8,7 @@
         <slot name="top"></slot>
         <slot name="new"></slot>
         <slot></slot>
-        <div class="my-5">
+        <div class="my-5" v-if="showBanner">
             <img class="w-full"
                  src="img/categoryBanner/banner1.jpg"
                  alt="">
@@ -26,6 +26,10 @@ export default {
         path: {
             type: String,
             default: null
+        },
+        showBanner: {
+            type: Boolean,
+            default: true,
         }
     }
 };

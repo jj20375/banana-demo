@@ -1,4 +1,6 @@
 <template>
+<div>
+    <Banner />
     <div class="grid grid-cols-12 gap4">
         <div class="desktopShow col-start-1 col-span-1"></div>
         <div class="sm:col-span-10 col-span-12">
@@ -60,13 +62,16 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import Card from "../components/Card.vue";
-import CategoryComponent from "./index/CategoryComponent.vue";
+import CategoryComponent from "../components/CategoryComponent.vue";
+import Banner from "../components/Banner.vue";
 export default {
     components: {
+        Banner,
         Card,
         CategoryComponent
     },

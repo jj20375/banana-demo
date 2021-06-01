@@ -9,6 +9,8 @@ export default {
         isAuth: false,
         user: null, // 使用者資料
         isSupplier: false, // 判斷是否呈現供給者樣板
+        // 首頁上方搜尋條件資料
+        searchValue: {},
     },
     // computed
     getters: {
@@ -33,6 +35,10 @@ export default {
         // 設定供給者是否為供給者樣板
         setIsSupplier(state, val) {
             state.isSupplier = val;
+        },
+        // 設定首頁上方搜尋條件資料
+        setSearchValue(state,val) {
+            state.searchValue = val;
         }
     },
     // mounted ajax的方法都寫在這

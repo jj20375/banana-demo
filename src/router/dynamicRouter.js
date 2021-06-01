@@ -7,7 +7,8 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "約會紀錄",
-            typeUser: "all"
+            typeUser: "all",
+            isMenu: true
         },
     },
     {
@@ -18,7 +19,8 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "金流紀錄",
-            typeUser: "all"
+            typeUser: "all",
+            isMenu: true
         },
     },
     {
@@ -29,7 +31,8 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "行事曆",
-            typeUser: "supplier"
+            typeUser: "supplier",
+            isMenu: true
         },
     },
     {
@@ -40,7 +43,8 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "服務設定",
-            typeUser: "supplier"
+            typeUser: "supplier",
+            isMenu: true
         },
     },
     {
@@ -51,7 +55,8 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "對象管理",
-            typeUser: "supplier"
+            typeUser: "supplier",
+            isMenu: true
         },
     },
     {
@@ -62,7 +67,20 @@ const dynamicRoutes = [
         component: () => import("../views/OtherPage.vue"),
         meta: {
             text: "收藏紀錄",
-            typeUser: "all"
+            typeUser: "all",
+            isMenu: true
+        },
+    },
+    {
+        path: "/search",
+        name: "search",
+        icon: "icofont-heart-alt",
+        iconClass: "text-2xl text-red-600",
+        component: () => import("../views/SearchPage.vue"),
+        meta: {
+            text: "搜尋頁面",
+            typeUser: "all",
+            isMenu: false
         },
     },
 ];

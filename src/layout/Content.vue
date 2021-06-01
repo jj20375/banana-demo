@@ -13,7 +13,6 @@
             </div>
             <div class="col-span-12 bg-gray-200"
                  :style="isAuth && !isMobile ? `margin-left:${sideBarWidth}px;`: 'margin-left:0'">
-                <Banner />
                 <div class="mb-20">
                     <router-view></router-view>
                 </div>

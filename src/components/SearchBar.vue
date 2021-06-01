@@ -4,7 +4,7 @@
                  :model="form"
                  :rules="rules">
             <div class="sm:flex sm:items-center justify-center sm:h-20 w-full">
-                <div class="sm:mr-5 sm:ml-2 desktopShow">
+                <div class="sm:mr-5 sm:ml-2 desktopShow cursor-pointer">
                     <img @click="$router.push({name:'home'}).catch(err=>{});"
                          class="w-24 ml-2"
                          src="../img/logo.svg"
@@ -53,7 +53,8 @@
                           @click="onSubmit()">
                         <i class="fas fa-search sm:mr-5"></i>
                     </span>
-                    <span @click="closeSearchBar()" class="sm:border-none border border-gray-400 sm:py-0 py-2 sm:px-0 px-3 rounded-lg">
+                    <span @click="closeSearchBar()"
+                          class="sm:border-none border border-gray-400 sm:py-0 py-2 sm:px-0 px-3 rounded-lg">
                         <i class="icofont-ui-close"></i>
                     </span>
                 </div>
@@ -69,7 +70,8 @@
 /deep/ .el-form-item__error {
     margin-top: -20px;
 }
-/deep/ .el-date-editor.el-input, .el-date-editor.el-input__inne {
+/deep/ .el-date-editor.el-input,
+.el-date-editor.el-input__inne {
     @screen sm {
         @apply w-2/3;
     }
@@ -78,6 +80,9 @@
 </style>
 
 <script>
+import { mapMutations } from "vuex";
+// 時間格式轉換套件
+import moment from "moment";
 export default {
     data() {
         return {
@@ -110,6 +115,7 @@ export default {
         };
     },
     methods: {
+        ...mapMutations("userStore", ["setSearchValue"]),
         // 關閉搜尋框
         closeSearchBar() {
             this.form = {};
@@ -125,6 +131,12 @@ export default {
             try {
                 // 等待表單驗證是否成功 try catch 會自動判斷是 true 或 false 因次不用寫 if 判斷
                 await this.$refs.form.validate();
+                this.form.dateTime = moment(this.form.dateTime, "YYYY/MM/DD HH:mm:ss");
+                this.setSearchValue(this.form);
+                if (this.$route.name !== "search") {
+                    this.$router.push({ name: "search" });
+                }
+                this.closeSearchBar();
             } catch (err) {
                 this.$message({
                     type: "error",
